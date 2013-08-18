@@ -9,6 +9,10 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
 
+// less render
+var fs = require('fs')
+  , less = require('less');
+
 var app = express();
 
 // all environments
@@ -26,6 +30,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+
+//rendering less css
+app.get('*.less', function(req, res){
+	fs.readFile(__dirname + req.url, "utf8", function(err, data){
+		if (err) throw err;
+		less.render(data, function(err, css){
+			if (err) throw err;
+			res.header("Content-type", "text/css");
+			res.send(css);
+		});
+	});
+});
 
 app.get('/', routes.index);
 app.get('/users', user.list);
