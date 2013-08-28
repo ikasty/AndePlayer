@@ -4,8 +4,6 @@
  */
 
 exports.index = function(req, res){
-	//이 시점에서 로그인되어 있다면 메인 페이지를, 아니라면 로그인 페이지를 보여줌
-
-	//로그인 페이지
-	res.render('dologin', { });
+	//우선 컨테이너만 보여주고, 나머지 부분은 동적 ajax로 처리한다.
+	res.render('container', { });
 };
