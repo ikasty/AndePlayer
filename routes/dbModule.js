@@ -1,71 +1,75 @@
-var musicDb = require('mongoose');
-musicDb.connect('mongodb://localhost/music')
-var musicSchema = musicDb.Schema({
-	name : String,
-	album : String,
-	number : Number,
-	year : Number,
-	artist : String,
-	genre : String,
-	preference : Number,
-	localPath : String,
+/*
+	dbModule.js ver.0.1
+	2014.01.25 
+*/
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/AndePlayer');
+
+
+var musicSchema = new mongoose.Schema({
+	name : String,	
 	webPath : String
 });
-var musicModel = musicDb.model('Music', musicSchema);
+var Music = mongoose.model('Music', musicSchema, 'Music');
 
-var playlistSchema = musicDb.Schema({
-	name : String,
-	ids : [Objectid],
-	musicNames : [String]
-});
-var playListModel = musicDb.model('PlayList', playListSchema);
-
-var memberDb = requier('mongoose');
-memberDb.connect('mongodb://localhost/member');
-ver memberSchema = memberDb.Schema({
-	id : String,
+var userSchema = new mongoose.Schema({
+	id : String,	
 	password : String
 });
-var memberModel = memberDb.model('Member', memberSchema);
+var User = mongoose.model('User', userSchema, 'User');
 
-exports.isLogin = function(member){
-	if(!member.id || !member.pass) return false;
-	memberModel.findOne({id : member.id, password : member.password}, 
-		function(err, foundMember){
-			if(err) return false;
-			if(foundMember)	return true;
-			else 			return false;
-	});
-};
 
-exports.getPlayList = function(playList){
-	if(!playList) return false;
-	playListModel.findOne({name:playList}, 
-		function(err, foundList){
-			if(err) return false;
-			if(foundList) 	return foundList;
-			else 			return false;
+exports.saveSong = function(songName, path){
+	Music.find({name: songName}, function(err, doc){
+		if(doc){
+			return console.log('ERROR : Name of song is duplicate');
+		} 
+
+		Music.create({
+			name 	: songName,
+			webPath : path
+		}, function(err){
+			if(err) console.log('ERROR : ' + err);
+		});
 	});
 }
 
-exports.getLibrary = function(){
-	musicModel.find({}, 'name _id', function(err, library){
-		if(err) return false;
-		return library;
+exports.getAllSongs = function(callback){
+	Music.find({}, function(err, doc){		
+		if(err){
+			return console.log('ERROR : ' + err);
+		}
+		callback(doc);
 	});
 }
 
-exports.getMusicinfo = function(id){
-	musicModel.findById(id,function(err, music){
-		if(err) return false;
-		return music;
-	})
+exports.getSongByName = function(name, callback){
+	Music.find({name: name}, function(err, doc){
+		if(err) return console.log('ERROR : ' + err);
+
+		callback(doc);		
+	});
 }
 
-exports.addMusic = function(music){
-	musicModel.findById(music._id ,function(err, foundMusic){
-		if(err) return false;
-		if(foundMusic) return false;
-		music.save();
-	})
+exports.saveUser = function(id, password){
+	User.find({id: id}, function(err, doc){
+		if(doc){
+			return console.log('ERROR : ID is duplicate');
+		} 
+
+		User.create({
+			id: id,
+			password: password
+		}, function(err){
+			if(err) console.log('ERROR : ' + err);
+		});
+	});
+}
+
+exports.isLogin = function(id, password){
+	User.find({id: id, password: password}, function(err, doc){
+		if(doc)	return true;
+		else 	return false; 
+	});
 }
