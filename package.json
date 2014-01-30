@@ -6,8 +6,9 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "3.3.1",
+    "express": "3.4.8",
     "jade": "*",
-    "less": "*"
+    "less": "*",
+    "mongoose": "3.8.4"
   }
 }
