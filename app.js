@@ -5,7 +5,6 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
 
@@ -45,7 +44,10 @@ app.get('*.less', function(req, res){
 
 // ==============================
 app.get('/', routes.index);
+app.get('/login', routes.login);
 
+
+// ==============================
 http.createServer(app).listen(app.get('port'), function(){
   console.log('AnDePlayer starts on port ' + app.get('port'));
 });
