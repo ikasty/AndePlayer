@@ -24,8 +24,7 @@ exports.saveSong = function(songName, path){
 	Music.find({name: songName}, function(err, doc){
 		if(doc){
 			return console.log('ERROR : Name of song is duplicate');
-		} 
-
+		}
 		Music.create({
 			name 	: songName,
 			webPath : path
@@ -53,23 +52,23 @@ exports.getSongByName = function(name, callback){
 }
 
 exports.saveUser = function(id, password){
-	User.find({id: id}, function(err, doc){
+	User.findOne({id: id}, function(err, doc){
 		if(doc){
 			return console.log('ERROR : ID is duplicate');
 		} 
-
 		User.create({
 			id: id,
 			password: password
 		}, function(err){
 			if(err) console.log('ERROR : ' + err);
+			else console.log('유저 '+id+'를 구함');
 		});
 	});
 }
 
-exports.isLogin = function(id, password){
-	User.find({id: id, password: password}, function(err, doc){
-		if(doc)	return true;
-		else 	return false; 
+exports.isLogin = function(id, password, callback){
+	User.findOne({id:id, password:password}, function(err, doc){
+		if(doc)	return callback(true);
+		else 	return callback(false); 
 	});
 }
