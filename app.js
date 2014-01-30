@@ -5,6 +5,7 @@
 
 var express = require('express')
   , routes = require('./routes')
+  , login = require('./routes/login')
   , http = require('http')
   , path = require('path');
 
@@ -44,7 +45,7 @@ app.get('*.less', function(req, res){
 
 // ==============================
 app.get('/', routes.index);
-app.get('/login', routes.login);
+app.get('/login', login.index);
 
 
 // ==============================
