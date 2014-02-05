@@ -48,7 +48,7 @@ app.get('*.less', function(req, res){
 // ==============================
 app.get('/', routes.index);
 app.get('/login', login.index);
-
+app.get('/testPlay', routes.testPlay);
 
 // ==============================
 http.createServer(app).listen(app.get('port'), function(){

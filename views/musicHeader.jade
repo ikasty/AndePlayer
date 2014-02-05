@@ -1,0 +1,12 @@
+doctype 5
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='/audiojs/audio.min.js')
+    script
+      audiojs.events.ready(function() {
+        var as = audiojs.createAll();
+      });
+  body
+    block content
