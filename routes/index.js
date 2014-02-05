@@ -8,6 +8,9 @@ exports.index = function(req, res){
 	res.render('container', { });
 };
 
+exports.player = function(req, res){
+	// 음악 플레이어를 출력하는 부분
+};
 exports.testPlay = function(req, res){
 	// 음악 플레이어 테스트
 	res.render('testplay', { });
