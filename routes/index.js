@@ -14,5 +14,4 @@ exports.index = function(req, res){
 exports.player = function(req, res){
 	// 음악 플레이어를 출력하는 모듈
 	res.render('testplay');
->>>>>>> origin/v0.1-alpha.routes
 };
