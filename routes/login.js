@@ -4,13 +4,19 @@
  * 2014-01-30
  */
 
-exports.index = function(req, res){
+// 로그인을 검사해서 리다이렉트 또는 계속진행
+exports.check = function(req, res, next) {
 	// 현재 로그인이 된 상태인지 확인한 후 처리
-	if ( true ) // TODO: 로그인 검사 -> 로그인이 필요한 상태
-		res.render('login', { });
+	console.log("login test");
+	if ( false ) // TODO: 로그인 검사 -> 로그인이 필요한 상태
+		res.redirect('/login');
 	else // 로그인이 필요 없으면
-		res.render('container', { });
+		next();
 };
+
+exports.loginpage = function(req, res) {
+	res.render('loginpage');
+}
 
 // 로그인 상태인지 확인
 exports.islogin = function(req){
