@@ -25,7 +25,12 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.cookieParser());
 app.use(express.session( { secret: "andeplayer_sessionkey" } ));
-app.use(express.bodyParser());
+
+//app.use(express.bodyParser());
+//connect.multipart가 deprecated되어 아래와 같이 변경함
+//또, connect-multiparty 모듈이 필요해짐
+app.use(require('connect-multiparty')());
+
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));

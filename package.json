@@ -9,6 +9,8 @@
     "express": "3.4.8",
     "jade": "*",
     "less": "*",
-    "mongoose": "3.8.4"
+    "mongoose": "3.8.4",
+    
+    "connect-multiparty": "*"
   }
 }
