@@ -34,8 +34,8 @@ exports.saveSong = function(songName, path){
 	});
 }
 
-exports.getAllSongs = function(callback){
-	Music.find({}, function(err, doc){		
+exports.getAllSongNames = function(callback){
+	Music.find({}, 'name', function(err, doc){		
 		if(err){
 			return console.log('ERROR : ' + err);
 		}
@@ -70,5 +70,11 @@ exports.isLogin = function(id, password, callback){
 	User.findOne({id:id, password:password}, function(err, doc){
 		if(doc)	return callback(true);
 		else 	return callback(false); 
+	});
+}
+
+exports.getPasswordById = function(id, callback){
+	User.findOne({id:id}, 'password', function(err, doc){
+		if(doc) return callback(doc.password);
 	});
 }
