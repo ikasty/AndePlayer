@@ -1,6 +1,6 @@
 /*
-	dbModule.js ver.0.1
-	2014.01.25 
+	dbModule.js ver.0.11
+	2014.02.10 
 */
 
 var mongoose = require('mongoose');
