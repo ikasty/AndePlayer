@@ -13,7 +13,7 @@ var express = require('express')
  * 라우트 모듈들
  */
 var routes = require('./routes/index')
-  , login = require('./routes/login')
+  , login = require('./routes/login');
 
 var app = express();
 
@@ -50,9 +50,18 @@ app.get('*.less', function(req, res){
 
 
 // 로그인 검사를 해야 하는 페이지는 login.check을 먼저 한다
-app.get('/', routes.index);
-app.get('/testPlay', login.check, routes.player);
+// app.get('/', routes.index);
 
+//임시로 대문을 testplay로 한다.
+app.get('/', login.check, routes.player);
+// app.get('/testPlay', login.check, routes.player);
+app.get('/login', login.loginpage);
+
+//로그인 요청을 처리하는 주소
+app.get('/dologin', login.doLogin);
+
+app.use(express.cookieParser());
+app.use(express.session({secret: '1234567890QWERTY'}));
 
 // ==============================
 http.createServer(app).listen(app.get('port'), function(){
