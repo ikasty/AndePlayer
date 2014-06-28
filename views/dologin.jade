@@ -1,3 +1,6 @@
 include container.jade
 include login
-  같이 로그인 해요
+  form#login(action="/doLogin")
+    input(name="id")
+    input(name="password")
+    input(type="submit")
