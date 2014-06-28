@@ -1,5 +1,5 @@
 var musicDb = require('mongoose');
-musicDb.connect('mongodb://localhost/music')
+musicDb.connect('mongodb://localhost/music');
 var musicSchema = musicDb.Schema({
 	name : String,
 	album : String,
@@ -13,20 +13,20 @@ var musicSchema = musicDb.Schema({
 });
 var musicModel = musicDb.model('Music', musicSchema);
 
-var playlistSchema = musicDb.Schema({
+var playListSchema = musicDb.Schema({
 	name : String,
-	ids : [Objectid],
+	ids : [musicDb.Schema.Types.ObjectId],
 	musicNames : [String]
 });
 var playListModel = musicDb.model('PlayList', playListSchema);
 
-var memberDb = requier('mongoose');
-memberDb.connect('mongodb://localhost/member');
-ver memberSchema = memberDb.Schema({
-	id : String,
-	password : String
-});
-var memberModel = memberDb.model('Member', memberSchema);
+// var memberDb = require('mongoose');
+// memberDb.connect('mongodb://localhost/member');
+// var memberSchema = memberDb.Schema({
+// 	id : String,
+// 	password : String
+// });
+// var memberModel = memberDb.model('Member', memberSchema);
 
 exports.isLogin = function(member){
 	if(!member.id || !member.pass) return false;

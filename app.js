@@ -46,6 +46,9 @@ app.get('*.less', function(req, res){
 // ==============================
 app.get('/', routes.index);
 
+var mongo = require('./routes/dbModule');
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('AnDePlayer starts on port ' + app.get('port'));
+  console.log(mongo.getLibrary('admin', '0000'));
 });
