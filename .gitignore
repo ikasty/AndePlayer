@@ -214,4 +214,9 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 
-index.js
+#sublime project files
+*.sublime-project
+*.sublime-workspace
+
+#ignore mp3 files
+*.mp3
