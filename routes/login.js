@@ -7,14 +7,18 @@
 // 로그인을 검사해서 리다이렉트 또는 계속진행
 exports.check = function(req, res, next) {
 	// 현재 로그인이 된 상태인지 확인한 후 처리
-	if ( !req.session.islogin ) // TODO: 로그인 검사 -> 로그인이 필요한 상태
+	
+	if ( !req.session.islogin ){
+		//로그인 이후 이동할 페이지를 설정
+		req.session.nextPath = req.url;
+		// TODO: 로그인 검사 -> 로그인이 필요한 상태
 		res.redirect('/login');
+	} 
 	else // 로그인이 필요 없으면
 		next();
 };
 
 exports.loginpage = function(req, res) {
-	//로그인 되어있으면 메인 페이지로 이동
 	if (!req.session.islogin){
 		res.render('login');
 	}
@@ -44,7 +48,13 @@ exports.doLogin = function(req, res){
 		} 
 		else {
 			req.session.islogin = true;
-			res.redirect('/');
+			if(req.session.nextPath) {
+				res.redirect(req.session.nextPath);
+				req.session.nextPath = null;					
+			}
+			else {
+				res.redirect('/');
+			}		
 		}
 	});
 }
