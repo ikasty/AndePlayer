@@ -21,7 +21,7 @@ var User = mongoose.model('User', userSchema, 'User');
 
 
 exports.saveSong = function(songName, path){
-	Music.find({name: songName}, function(err, doc){
+	Music.findOne({name: songName}, function(err, doc){
 		if(doc){
 			return console.log('ERROR : Name of song is duplicate');
 		}
@@ -46,7 +46,6 @@ exports.getAllSongNames = function(callback){
 exports.getSongByName = function(name, callback){
 	Music.find({name: name}, function(err, doc){
 		if(err) return console.log('ERROR : ' + err);
-
 		callback(doc);		
 	});
 }
@@ -75,6 +74,11 @@ exports.isLogin = function(id, password, callback){
 
 exports.getPasswordById = function(id, callback){
 	User.findOne({id:id}, 'password', function(err, doc){
-		if(doc) return callback(doc.password);
+		if(doc) {
+			return callback(doc.password);
+		}
+		else {
+			return callback(false);
+		}		
 	});
 }

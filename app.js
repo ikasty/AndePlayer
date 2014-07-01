@@ -13,7 +13,8 @@ var express = require('express')
  * 라우트 모듈들
  */
 var routes = require('./routes/index')
-  , login = require('./routes/login');
+  , login = require('./routes/login')
+  , music = require('./routes/music');
 
 var app = express();
 
@@ -59,6 +60,7 @@ app.get('/login', login.loginpage);
 
 //로그인 요청을 처리하는 주소
 app.get('/dologin', login.doLogin);
+app.post('/uploadMusic', music.uploadMusic);
 
 app.use(express.cookieParser());
 app.use(express.session({secret: '1234567890QWERTY'}));

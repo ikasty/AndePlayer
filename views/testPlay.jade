@@ -1,2 +1,39 @@
 include musicHeader.jade
-include musicPlayer.jade
+
+div#mainContainer
+  div.container
+    div.wrapper
+      div#logoArea
+        |Ande Player
+      div#buttonArea
+        div#uploadButton.button 음악 올리기
+        form#uploadMusicForm.hidden(action="/uploadMusic" method="post" enctype="multipart/form-data")
+          input(type="file" name="musicFile")
+          input(type="submit")
+  div.container
+    include musicPlayer.jade    
+  div.container
+    div#musicList.wrapper
+      div.item= musicName
+
+    
+
+
+script.
+  (function () {
+    $(document).ready(function () {
+      audiojs.events.ready(function () {
+        audiojs.createAll();
+        $('audio').load($('audio').attr('src'));
+        $('.play').click();
+      });
+      
+      $('#uploadButton').click(function () {
+        $('input:file[name="musicFile"]').click();
+      });
+      $('input:file[name="musicFile"]').change(function () {
+        $('#uploadMusicForm').submit();
+      });
+
+    });
+  })();

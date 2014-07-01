@@ -34,14 +34,23 @@ exports.islogin = function(req){
 
 // 로그인 처리
 exports.doLogin = function(req, res){
-	var db = require('../routes/dbModule');
+	var db = require('./dbModule');
 
 	// id를 입력했는지 확인
-	if (req.query.id == '') return false;
+	if (req.query.id == ''){
+		res.redirect('/login');
+		return false;
+	} 
 	// pw를 입력했는지 확인
-	if (req.query.pw == '') return false;
+	if (req.query.pw == ''){
+		res.redirect('/login');
+		return false;
+	} 
 
 	db.getPasswordById(req.query.id, function (pwOriginal){
+		if(pwOriginal === false){
+			res.redirect('/login');
+		}
 		if (req.query.pw != pwOriginal){
 			req.session.islogin = false;			
 			res.redirect('/login');
@@ -50,7 +59,7 @@ exports.doLogin = function(req, res){
 			req.session.islogin = true;
 			if(req.session.nextPath) {
 				res.redirect(req.session.nextPath);
-				req.session.nextPath = null;					
+				req.session.nextPath = null;
 			}
 			else {
 				res.redirect('/');
