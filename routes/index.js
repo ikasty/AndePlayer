@@ -12,15 +12,15 @@ exports.index = function(req, res){
 
 exports.player = function(req, res){
 	// 음악 플레이어를 출력하는 모듈
-  var data = null;
+  var data = {}, db;
 
-  if(req.session.newMusicPath){
-    data = {
-      musicPath: req.session.newMusicPath,
-      musicName: req.session.newMusicName
-    };
-
-    console.log(data);
-  }
-	res.render('testplay', data);
+  db = require('./dbModule');
+  db.getAllSongNames(function (musicList) {
+    data.musicList = musicList;
+    if(req.session.newMusicPath){
+      data.musicPath = req.session.newMusicPath;
+      data.musicName = req.session.newMusicName;
+    }
+    res.render('testplay', data);
+  });
 };

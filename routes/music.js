@@ -19,10 +19,20 @@ exports.uploadMusic = function (req, res) {
       if(!err) {
         req.session.newMusicName = musicFileName;
         req.session.newMusicPath = webPath;
-        console.log(musicFileName);
         db.saveSong(musicFileName, webPath);
       }
       res.redirect("/");      
     });
+  });
+}
+
+exports.getMusic = function (req, res) {
+  var data, db = require('./dbModule');
+
+  console.log(req.query);
+  db.getSongByName(req.query.name, function (music) {
+    res.header("Access-Control-Allow-Origin", "*");
+    console.log(music);
+    res.send(music);
   });
 }

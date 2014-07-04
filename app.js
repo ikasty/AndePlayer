@@ -61,6 +61,7 @@ app.get('/login', login.loginpage);
 //로그인 요청을 처리하는 주소
 app.get('/dologin', login.doLogin);
 app.post('/uploadMusic', music.uploadMusic);
+app.get('/getMusic', music.getMusic);
 
 app.use(express.cookieParser());
 app.use(express.session({secret: '1234567890QWERTY'}));

@@ -14,16 +14,18 @@ div#mainContainer
     include musicPlayer.jade    
   div.container
     div#musicList.wrapper
-      div.item= musicName
-
-    
-
+      //- div.item= musicName
+      each music in musicList
+        div.item= music.name
 
 script.
   (function () {
     $(document).ready(function () {
+      var andeAudio;
+
       audiojs.events.ready(function () {
-        audiojs.createAll();
+        andeAudio = audiojs.createAll();
+        andeAudio = andeAudio[0];
         $('audio').load($('audio').attr('src'));
         $('.play').click();
       });
@@ -35,5 +37,17 @@ script.
         $('#uploadMusicForm').submit();
       });
 
+      $('#musicList .item').click(function() {
+        $.ajax({
+          type: 'get',
+          url: '/getMusic',
+          data: {name: $(this).html()},
+          success: function(newMusic) {
+            //- alert(newMusic.webPath);
+            andeAudio.load(newMusic.webPath);
+            andeAudio.play();
+          }
+        });
+      });
     });
   })();

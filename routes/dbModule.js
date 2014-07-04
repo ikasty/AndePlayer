@@ -6,7 +6,6 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/AndePlayer');
 
-
 var musicSchema = new mongoose.Schema({
 	name : String,	
 	webPath : String
@@ -46,7 +45,7 @@ exports.getAllSongNames = function(callback){
 exports.getSongByName = function(name, callback){
 	Music.find({name: name}, function(err, doc){
 		if(err) return console.log('ERROR : ' + err);
-		callback(doc);		
+		callback(doc[0]);		
 	});
 }
 

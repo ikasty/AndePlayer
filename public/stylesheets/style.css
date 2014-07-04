@@ -45,6 +45,8 @@ a {
 #musicList {
   color: white;
   font-size: 14px;
+  height: 300px;
+  overflow-y: scroll;
 }
 
 .button {
@@ -78,4 +80,9 @@ a {
   display: -webkit-box;
   display: -moz-box;
   display: flex;
+}
+
+.item {
+  margin: 10px 0;
+  cursor: pointer;
 }

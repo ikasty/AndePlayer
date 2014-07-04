@@ -220,3 +220,6 @@ pip-log.txt
 
 #ignore mp3 files
 *.mp3
+
+#ignore files in public/mp3
+public/mp3/*.*
